@@ -17,3 +17,8 @@ WebRoot/WEB-INF/classes/com/qcm/dao/BaseDao.class
 *.class
 WebRoot/WEB-INF/classes/com/qcm/dao/BaseDao.class
 *.class
+.settings/com.genuitec.eclipse.j2eedt.core.prefs
+*.prefs
+*.Ink
+*.MF
+src/main/webapp - Shortcut.lnk
