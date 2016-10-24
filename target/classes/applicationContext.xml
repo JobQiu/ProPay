@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	">
+
+
+	<!--数据源的设置
+	http://blog.csdn.net/orclight/article/details/8616103
+	注意导包，org.springframework. jdbc 和一个 。。。. orm的jar包
+	这个dataSource主要是为了下面那个bean服务的
+	-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource ">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />  
+    	<property name="url" value="jdbc:mysql://localhost:3306/learnhibernate" />  
+    	<property name="username" value="root" />     
+    	<property name="password" value="123456" /> 
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" >
+		
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mappingDirectoryLocations">
+            <list>
+                <value>classpath:com/qcm/entity/</value><!-- 加载hibernate的映射文件*.hbm.xml -->
+            </list>
+        </property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key = "hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">
+					update
+				</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="baseDaoImpl" class="com.qcm.dao.impl.BaseDaoHibernate4">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>
